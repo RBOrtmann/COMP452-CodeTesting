@@ -3,42 +3,45 @@ import java.util.Random;
 /**
  * A game where a human guesses a number between 1 and UPPER_BOUND
  * Tracks the target, the number of guesses made, and if the number has been guessed
- *
+ * <p>
  * NOTE: You can refactor and edit this file if needed
  */
 public class HumanGuessesGame {
-    public final static int UPPER_BOUND = 1000;
+    public static final int UPPER_BOUND = 1000;
 
     private final int target;
     private int numGuesses;
     private boolean gameIsDone; // true iff makeGuess has been called with the target value
 
-    HumanGuessesGame(){
-        Random randGen = new Random();
-        this.target = randGen.nextInt(UPPER_BOUND) + 1;
-
-        numGuesses = 0;
-        gameIsDone = false;
+    public HumanGuessesGame() {
+        this(new Random());
     }
 
-    GuessResult makeGuess(int value){
+    public HumanGuessesGame(final Random randGen) {
+        this.target = randGen.nextInt(UPPER_BOUND) + 1;
+    }
+
+    public GuessResult makeGuess(int value) {
+        return makeGuess(value, target);
+    }
+
+    public GuessResult makeGuess(int value, int target) {
         numGuesses += 1;
 
-        if(value < target){
+        if (value < target) {
             return GuessResult.LOW;
-        }
-        if(value > target){
+        } else if (value > target) {
             return GuessResult.HIGH;
         }
 
         return GuessResult.CORRECT;
     }
 
-    int getNumGuesses(){
+    public int getNumGuesses() {
         return numGuesses;
     }
 
-    boolean isDone(){
+    public boolean isDone() {
         return gameIsDone;
     }
 }

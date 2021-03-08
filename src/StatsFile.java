@@ -21,13 +21,13 @@ public class StatsFile extends GameStats {
     // the past 30 days where the person took that many guesses
     private final SortedMap<Integer, Integer> statsMap = new TreeMap<>();
 
-    public StatsFile(){
-        this(LocalDateTime.now().minusDays(30));
+    public StatsFile() {
+        this(LocalDateTime.now().minusDays(30), FILENAME);
     }
 
-    public StatsFile(final LocalDateTime limit) {
-        try (CSVReader csvReader = new CSVReader(new FileReader(FILENAME))) {
-            for(String[] values : csvReader){
+    public StatsFile(final LocalDateTime limit, final String filename) {
+        try (CSVReader csvReader = new CSVReader(new FileReader(filename))) {
+            for (String[] values : csvReader) {
                 readValues(limit, values, statsMap);
             }
         } catch (IOException e) {
@@ -36,7 +36,7 @@ public class StatsFile extends GameStats {
         }
     }
 
-    private void readValues(LocalDateTime limit, String[] values, final Map<Integer, Integer> statsMap) {
+    public void readValues(LocalDateTime limit, String[] values, final Map<Integer, Integer> statsMap) {
         // values should have the date and the number of guesses as the two fields
         try {
             LocalDateTime timestamp = LocalDateTime.parse(values[0]);
@@ -45,14 +45,15 @@ public class StatsFile extends GameStats {
             if (timestamp.isBefore(limit)) {
                 statsMap.put(numGuesses, 1 + statsMap.getOrDefault(numGuesses, 0));
             }
-        } catch (NumberFormatException | DateTimeParseException nfe) {
+        } catch (NumberFormatException | DateTimeParseException | NullPointerException nfe) {
             // NOTE: In a full implementation, we would log this error and possibly alert the user
             throw nfe;
         }
     }
 
     @Override
-    public int numGames(int numGuesses) {
+    public int numGames(int numGuesses)
+    {
         return statsMap.getOrDefault(numGuesses, 0);
     }
 

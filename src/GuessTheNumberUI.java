@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.time.LocalDateTime;
+
 import javax.swing.*;
 import com.formdev.flatlaf.*;
 
@@ -67,7 +69,13 @@ public class GuessTheNumberUI {
         // TODO: your refactoring should include some changes to the lambda expression in the following line
         // HINT: Look at what GameOverPanel.setGameResults does now. Your code should do the same operations,
         //       but refactor how those are structured, which means the lambda will need to change.
-        JPanel humanGuessesPanel = new HumanGuessesPanel(cardsPanel, gameResult -> {gameOverPanel.setGameResults(gameResult);});
+        JPanel humanGuessesPanel = new HumanGuessesPanel(cardsPanel, gameResult -> {
+            gameOverPanel.setGameResults(gameResult);
+
+            // Write results to CSV file
+            if(gameResult.humanWasPlaying)
+                FileUtils.writeToFile(gameResult, LocalDateTime.now());
+        });
         addToCards(cardsPanel, humanGuessesPanel, ScreenID.HUMAN_PLAY.name());
 
         // COMPUTER_PLAY_LAUNCH

@@ -78,8 +78,5 @@ public class GameOverPanel extends JPanel {
         else {
             numGuessesTxt.setText("It took " + (result.humanWasPlaying ? "you" : "me") + " " + result.numGuesses + " guesses.");
         }
-
-        if(result.humanWasPlaying)
-            FileUtils.writeToFile(result, LocalDateTime.now());
     }
 }

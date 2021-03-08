@@ -1,10 +1,12 @@
-import com.opencsv.CSVWriter;
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 
-import javax.swing.*;
-import java.awt.*;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDateTime;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * Panel displays after a game has concluded

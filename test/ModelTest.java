@@ -81,6 +81,7 @@ class ModelTest {
         assertEquals(0, result);
     }
 
+    // using dependency injection
     class TestStats extends GameStats {
 
         private SortedMap<Integer, Integer> statsMap = new TreeMap<>();

@@ -29,4 +29,16 @@ public class Model {
 
         return result;
     }
+
+    public int setUpperBound(int upperBound, int lastGuess){
+        return Math.min(upperBound, lastGuess);
+    }
+
+    public int setLastGuess(int lowerBound, int upperBound){
+        return (lowerBound + upperBound + 1) / 2;
+    }
+
+    public int setLowerBound(int lowerBound, int lastGuess){
+        return Math.max(lowerBound, lastGuess + 1);
+    }
 }

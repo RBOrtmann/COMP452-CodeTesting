@@ -71,7 +71,6 @@ public class GuessTheNumberUI {
         //       but refactor how those are structured, which means the lambda will need to change.
         JPanel humanGuessesPanel = new HumanGuessesPanel(cardsPanel, gameResult -> {
             gameOverPanel.setGameResults(gameResult);
-            gameOverPanel.updateResultsUI(gameResult);
 
             // Write results to CSV file
             if(gameResult.humanWasPlaying)

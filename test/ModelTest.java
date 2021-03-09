@@ -1,3 +1,4 @@
+import org.apache.commons.lang3.AnnotationUtilsTest.TestAnnotation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -100,4 +101,20 @@ class ModelTest {
             return statsMap.lastKey();
         }
     }
+
+    @Test
+    void testSetLastGuess(){
+        int result = model.setLastGuess(1, 1000);
+
+        assertEquals(500, result);
+    }
+
+    @Test
+    void testNegativeBounds(){
+        int result = model.setLastGuess(-10, -1);
+
+        assertEquals(-5, result);
+    }
+
+    
 }

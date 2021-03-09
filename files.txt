@@ -1,4 +1,0 @@
-GameOverPanel
-GameResult
-GameStats
-GuessTheNumberUI

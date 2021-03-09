@@ -20,10 +20,13 @@ public class ComputerGuessesPanel extends JPanel {
     private int upperBound; // correct number is <= upperBound
     private int lowerBound; // correct number is >= lowerBound
 
+    private Model model;
+
     public ComputerGuessesPanel(JPanel cardsPanel, Consumer<GameResult> gameFinishedCallback){
         numGuesses = 0;
         upperBound = 1000;
         lowerBound = 1;
+        model = new Model();
 
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
@@ -41,9 +44,8 @@ public class ComputerGuessesPanel extends JPanel {
 
         JButton lowerBtn = new JButton("Lower");
         lowerBtn.addActionListener(e -> {
-            upperBound = Math.min(upperBound, lastGuess);
-
-            lastGuess = (lowerBound + upperBound + 1) / 2;
+            upperBound = model.setUpperBound(upperBound, lastGuess);
+            lastGuess = model.setLastGuess(lowerBound, upperBound);
             numGuesses += 1;
             guessMessage.setText("I guess " + lastGuess + ".");
         });
@@ -66,9 +68,8 @@ public class ComputerGuessesPanel extends JPanel {
 
         JButton higherBtn = new JButton("Higher");
         higherBtn.addActionListener(e -> {
-            lowerBound = Math.max(lowerBound, lastGuess + 1);
-
-            lastGuess = (lowerBound + upperBound + 1) / 2;
+            lowerBound = model.setLowerBound(lowerBound, lastGuess);
+            lastGuess = model.setLastGuess(lowerBound, upperBound);
             numGuesses += 1;
             guessMessage.setText("I guess " + lastGuess + ".");
         });
@@ -82,7 +83,7 @@ public class ComputerGuessesPanel extends JPanel {
                 upperBound = 1000;
                 lowerBound = 1;
 
-                lastGuess = (lowerBound + upperBound + 1) / 2;
+                lastGuess = model.setLastGuess(lowerBound, upperBound);
                 guessMessage.setText("I guess " + lastGuess + ".");
             }
         });
@@ -93,5 +94,7 @@ public class ComputerGuessesPanel extends JPanel {
         GameResult result = new GameResult(humanWasPlaying, lastGuess, numGuesses);
         gameFinishedCallback.accept(result);
     }
+
+    
 
 }

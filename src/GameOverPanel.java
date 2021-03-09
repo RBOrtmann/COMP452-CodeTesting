@@ -72,6 +72,7 @@ public class GameOverPanel extends JPanel {
      */
     public void setGameResults(GameResult result){
         this.gameResult = result;
+        updateResultsUI(result);
     }
 
     /*

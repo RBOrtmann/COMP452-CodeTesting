@@ -20,7 +20,7 @@ public class Model {
         return results;
     }
 
-    private int sumGames(final int lowerBound, final int upperBound, final GameStats stats) {
+    public int sumGames(final int lowerBound, final int upperBound, final GameStats stats) {
         int result = 0;
 
         for (int numGuesses = lowerBound; numGuesses < upperBound; numGuesses++) {
